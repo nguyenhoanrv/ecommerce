@@ -16,12 +16,12 @@
     <div class="card">
       <div class="card-body">
         <div class="col-xl-6">
-          <h4 class="card-title mb-4">Horizontal Form Layout</h4>
+          <h4 class="card-title mb-4">Change Password</h4>
              <span>{{session('message')}}</span>
           <form method="POST" action="{{route('admin.update.password')}}">
             @csrf
             <div class="row mb-4">
-              <label for="horizontal-password-input" class="col-sm-3 col-form-label">Current Password</label>
+              <label for="horizontal-password-input" class="col-sm-3 col-form-label">Old Password</label>
               <div class="col-sm-9">
                 <div class="input-group auth-pass-inputgroup">
                   <input type="password" class="form-control" id="horizontal-password-input" name="password">
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="row mb-4">
-              <label for="horizontal-rppassword-input" class="col-sm-3 col-form-label">Repeat New Password</label>
+              <label for="horizontal-rppassword-input" class="col-sm-3 col-form-label">Comfirm New Password</label>
               <div class="col-sm-9">
                 <div class="input-group auth-pass-inputgroup">
                   <input type="password" class="form-control" id="horizontal-rppassword-input" name="npassword_confirmation">

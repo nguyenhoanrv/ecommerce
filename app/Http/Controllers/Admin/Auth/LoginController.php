@@ -26,39 +26,28 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'admin/home';
+    protected $redirectTo = 'admin.home';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    protected function guard()
-    {
-        return Auth::guard('admin');
-    }
+    
     public function __construct()
     {
         $this->middleware('guest:admin')->except('logout');
     }
+    
     public function showLoginForm()
     {
         return view('admin.auth.login');
     }
-
-    // public function login(Request $request)
-    // {
-    //     $validate = $request->validate([
-    //         'email' => 'required|email',
-    //         'password' => 'required|min:6',
-    //     ]);
-
-    //     if ($this->guard()->attempt(['email' => $request->email, 'password' => $request->password], $request->get('remember'))) {
-
-    //         return redirect()->intended($this->redirectTo);
-    //     }
-
-    // }
+    
+    protected function guard() 
+    {
+        return Auth::guard('admin');
+    }
 
     public function logout(Request $request)
     {
@@ -67,6 +56,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return \redirect()->route('admin.login');
+        return \redirect()->route($this->redirectTo);
     }
 }

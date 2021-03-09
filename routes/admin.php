@@ -21,10 +21,11 @@ Route::namespace ('Admin')->group(function () {
 
     Route::post('/logout', 'Auth\LoginController@logout')->name('admin.logout');
 
-    Route::group(['middleware' => ['auth:admin']], function () {
-        Route::get('/home', 'HomeController@index')->name('admin.home');
+    Route::group(['middleware' => ['auth:admin', 'web']], function () {
+        Route::get('/', 'HomeController@root');
+        Route::get('/home', 'HomeController@root')->name('admin.home');
         Route::get('/setting', 'AdminController@changePassword');
         Route::post('/change-password', 'AdminController@updatePassword')->name('admin.update.password');
-
+        Route::get('{any}', 'HomeController@index');
     });
 });

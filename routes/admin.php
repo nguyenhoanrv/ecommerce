@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-Route::namespace ('Admin')->group(function () {
+
+Route::namespace('Admin')->group(function () {
 
     Route::get('/login', 'Auth\LoginController@showLoginForm');
     Route::post('/login', 'Auth\LoginController@login')->name('admin.login');
@@ -26,6 +27,11 @@ Route::namespace ('Admin')->group(function () {
         Route::get('/home', 'HomeController@root')->name('admin.home');
         Route::get('/setting', 'AdminController@changePassword');
         Route::post('/change-password', 'AdminController@updatePassword')->name('admin.update.password');
+        //category route
+        Route::get('/category', 'CategoryController@index');
+        Route::post('/category/create', 'CategoryController@store');
+        Route::put('category/update/{id}', 'CategoryController@update');
+        Route::delete('category/delete/{id}', 'CategoryController@delete');
         Route::get('{any}', 'HomeController@index');
     });
 });

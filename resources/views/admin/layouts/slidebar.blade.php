@@ -27,9 +27,9 @@
                 <span key="t-layouts">Category</span>
               </a>
               <ul class="sub-menu" aria-expanded="true">
-                    <li><a href="layouts-light-sidebar.html" key="t-light-sidebar">Light Sidebar</a></li>
-                    <li><a href="layouts-compact-sidebar.html" key="t-compact-sidebar">Compact Sidebar</a></li>
-                    <li><a href="layouts-scrollable.html" key="t-scrollable">Scrollable</a></li>
+                    <li><a href="{{URL::to('/admin/category')}}" key="t-light-sidebar">Category</a></li>
+                    <li><a href="layouts-compact-sidebar.html" key="t-compact-sidebar">Brand</a></li>
+                    <li><a href="layouts-scrollable.html" key="t-scrollable">SubCategory</a></li>
               </ul>
             </li>
 

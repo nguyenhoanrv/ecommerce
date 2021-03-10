@@ -8,6 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
   <meta content="Themesbrand" name="author" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <!-- App favicon -->
   <link rel="shortcut icon" href="{{URL::asset('backend/images/favicon.ico')}}">
 
@@ -18,7 +20,7 @@
   <link href="{{URL::asset('backend/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
   <!-- App Css-->
   <link href="{{URL::asset('backend/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
-
+  @yield('css')
 </head>
 
 <body data-sidebar="dark">
@@ -75,8 +77,8 @@
   <script src="{{URL::asset('backend/libs/jquery/jquery.min.js')}}"></script>
   <script src="{{URL::asset('backend/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
   <script src="{{URL::asset('backend/libs/metismenu/metisMenu.min.js')}}"></script>
+  <script src="{{URL::asset('backend/libs/simplebar/simplebar.min.js')}}"></script>
   <script src="{{URL::asset('backend/libs/node-waves/waves.min.js')}}"></script>
-
   <!-- apexcharts -->
 
   <!-- dashboard init -->
@@ -85,13 +87,18 @@
   <!-- toastr init -->
   <script src="{{URL::asset('backend/js/pages/toastr.init.js')}}"></script>
 
-  <script src="{{URL::asset('backend/js/app.js')}}"></script>
+
 
   <script>
-    @if(session('notification'))
-        toastr["{{ session('type') }}"]("{{ session('message') }}")
+    console.log("{{ session('message_noti') }}");
+    @if(session('message_noti'))
+        toastr["{{ session('type') }}"]("{{ session('message_noti') }}")
     @endif
   </script>
+  <script src="{{URL::asset('backend/js/app.js')}}"></script>
+
+  @yield('script')
+
 </body>
 
 </html>

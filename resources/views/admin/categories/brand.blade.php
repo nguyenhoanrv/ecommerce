@@ -142,8 +142,6 @@
         </div>
     </div>
     @endsection @section('script')
-    <script src="{{ URL::asset('backend/libs/table-edits/build/table-edits.min.js') }}"></script>
-    <script src="{{ URL::asset('backend/js/pages/table-editable.int.js') }}"></script>
     <script src="{{ URL::asset('backend/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ URL::asset('backend/js/pages/sweet-alerts.init.js') }}"></script>
     <script>

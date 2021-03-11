@@ -14,7 +14,7 @@ class BrandController extends Controller
     public function index()
     {
         $brands = Brand::orderBy('created_at', 'desc')->get();
-        return view('admin.brand', compact('brands'));
+        return view('admin.categories.brand', compact('brands'));
     }
 
     public function store(Request $request)
@@ -40,7 +40,7 @@ class BrandController extends Controller
     public function edit($id)
     {
         $brand = Brand::findOrFail($id);
-        return view('admin.update_brand', compact('brand'));
+        return view('admin.categories.update_brand', compact('brand'));
     }
 
     public function update(Request $request, $id)

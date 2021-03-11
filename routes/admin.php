@@ -41,6 +41,12 @@ Route::namespace('Admin')->group(function () {
         Route::put('brand/update/{id}', 'BrandController@update');
         Route::delete('brand/delete/{id}', 'BrandController@delete');
 
+        //subcategory route
+        Route::get('/subcategory', 'SubcategoryController@index');
+        Route::post('/subcategory/create', 'SubcategoryController@store');
+        Route::put('subcategory/update/{id}', 'SubcategoryController@update');
+        Route::delete('subcategory/delete/{id}', 'SubcategoryController@delete');
+
 
 
         Route::get('{any}', 'HomeController@index');

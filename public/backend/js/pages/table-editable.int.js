@@ -13,7 +13,6 @@ $(function() {
                 .addClass("fa-pencil-alt")
                 .attr("title", "Edit"),
                 this in e && (e[this].destroy(), delete e[this]);
-            console.log(t);
             $.ajaxSetup({
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")

@@ -12,7 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::orderBy('created_at', 'desc')->get();
-        return view('admin.category', compact('categories'));
+        return view('admin.categories.category', compact('categories'));
     }
 
     public function store(Request $request)
@@ -30,7 +30,6 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         if ($request->ajax()) {
-            json_encode($request->all());
             $request->validate([
                 'category_name' => "required",
             ]);

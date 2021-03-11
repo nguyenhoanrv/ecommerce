@@ -1,4 +1,4 @@
-@extends('admin.layouts.app') @section('title', 'Category | Admin')
+@extends('admin.layouts.app') @section('title', 'Brand | Admin')
 @section('css')
     <link href="{{ asset('backend/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -6,14 +6,14 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Category</h4>
+                <h4 class="mb-sm-0 font-size-18">Brand</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
                             <a href="javascript: void(0);">Category</a>
                         </li>
-                        <li class="breadcrumb-item active">Category</li>
+                        <li class="breadcrumb-item active">Brand</li>
                     </ol>
                 </div>
             </div>
@@ -21,11 +21,11 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Create new category</h5>
+                    <h5 class="card-title">Create new brand</h5>
                     <div>
                         <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
                             data-bs-target=".bs-example-modal-center">
-                            Create Category
+                            Create brand
                         </button>
 
                         <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true"
@@ -33,20 +33,31 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">New category</h5>
+                                        <h5 class="modal-title">New brand</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" id="form-category"
-                                            action="{{ URL::to('admin/category/create') }}">
+                                        <form method="POST" id="form-brand" action="{{ URL::to('admin/brand/create') }}"
+                                            enctype="multipart/form-data">
                                             @csrf
-                                            <div class="mb-4">
-                                                <label for="category-name" class="form-label">Category Name</label>
+                                            <div class="mb-2">
+                                                <label for="brand-name" class="form-label">Brand Name</label>
                                                 <input type="text"
-                                                    class="form-control @error('category_name') is-invalid @enderror"
-                                                    name="category_name" id="category-name" />
-                                                @error('category_name')
+                                                    class="form-control @error('brand_name') is-invalid @enderror"
+                                                    name="brand_name" id="brand-name" />
+                                                @error('brand_name')
+                                                    <span class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-4">
+                                                <label for="formFile" class="form-label">Brand Logo</label>
+                                                <input type="file" accept=".png, .jpg, .jpeg"
+                                                    class="form-control @error('brand_logo') is-invalid @enderror"
+                                                    name="brand_logo" id="formFile">
+                                                @error('brand_logo')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
@@ -79,39 +90,43 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Table Edits</h4>
+                        <h4 class="card-title">List Brand</h4>
                         <p class="card-title-desc">
                             Table Edits is a lightweight jQuery plugin for making
                             table rows editable.
                         </p>
 
                         <div class="table-responsive table-bordered">
-                            <table class="table table-editable table-nowrap align-middle table-edits stable-hover">
+                            <table class="table table-nowrap align-middle table-hover">
                                 <thead class="table-light">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Category Name</th>
+                                        <th>Brand Name</th>
+                                        <th>Brand Logo</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody class="">
-                                    @foreach ($categories as $category)
-                                        <tr id="{{ $category->id }}">
-                                            <td hidden data-field="id">{{ $category->id }}</td>
+                                <tbody>
+                                    @foreach ($brands as $brand)
+                                        <tr id="{{ $brand->id }}">
+                                            <td hidden>{{ $brand->id }}</td>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td data-field="category_name">{{ $category->category_name }}</td>
+                                            <td>{{ $brand->brand_name }}</td>
+                                            <td><img width="60px" src="{{ asset($brand->brand_logo) }}" alt="">
+                                            </td>
                                             <td>
-                                                <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
+                                                <a class="btn btn-outline-secondary btn-sm"
+                                                    href="{{ URL::to('/admin/brand/edit/' . $brand->id) }}">
                                                     <i class="fas fa-pencil-alt"></i>
                                                 </a>
                                             </td>
                                             <td>
                                                 <form method="POST">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <a class=" btn btn-outline-secondary btn-sm" title="Delete"
-                                                        data-id="{{ $category->id }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <a class=" btn btn-outline-secondary btn-sm" title="Delete-brand"
+                                                        data-id="{{ $brand->id }}">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </form>
@@ -132,7 +147,7 @@
     <script src="{{ URL::asset('backend/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ URL::asset('backend/js/pages/sweet-alerts.init.js') }}"></script>
     <script>
-        // $('#form-category').on("submit", function(e) {
+        // $('#form-brand').on("submit", function(e) {
         //     e.preventDefault();
         //     $.ajaxSetup({
         //         headers: {
@@ -141,11 +156,11 @@
         //     });
         //     $.ajax({
         //         type: "POST",
-        //         url: "category/create",
+        //         url: "brand/create",
         //         cache: "false",
         //         data: {
         //             "_token": "{{ csrf_token() }}",
-        //             "category_name": e.target[1].value
+        //             "brand_name": e.target[1].value
         //         },
         //         success: function(res) {
         //             $("#modal").modal('hide');

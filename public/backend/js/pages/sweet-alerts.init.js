@@ -72,6 +72,52 @@
                     }
                 });
             }),
+            t("[title='Delete-brand']").click(function(e) {
+                e.preventDefault();
+                const id = $(this).attr("data-id");
+                console.log();
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: !0,
+                    confirmButtonColor: "#34c38f",
+                    cancelButtonColor: "#f46a6a",
+                    confirmButtonText: "Yes, delete it!"
+                }).then(function(t) {
+                    if (t.isConfirmed) {
+                        $.ajaxSetup({
+                            headers: {
+                                "X-CSRF-TOKEN": $(
+                                    'meta[name="csrf-token"]'
+                                ).attr("content")
+                            }
+                        });
+                        $.ajax({
+                            url: "brand/delete/" + id,
+                            type: "delete",
+                            dataType: "JSON",
+                            data: {},
+                            success: function(response) {
+                                if (response.check) {
+                                    Swal.fire({
+                                        title: "Deleted!",
+                                        text: "Your file has been deleted.",
+                                        icon: "success",
+                                        showConfirmButton: false,
+                                        timer: 1000
+                                    });
+                                    $("#" + id).remove();
+                                }
+                            },
+                            error: function(xhr) {
+                                console.log(xhr.responseText); // this line will save you tons of hours while debugging
+                                // do something here because of error
+                            }
+                        });
+                    }
+                });
+            }),
             t("#sa-params").click(function() {
                 Swal.fire({
                     title: "Are you sure?",

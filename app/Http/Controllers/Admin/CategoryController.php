@@ -20,11 +20,10 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => "required|max:50"
         ]);
-
         Category::create([
             'category_name' => $request->category_name
         ]);
-        return redirect()->back()->with('message', 'Created category successfully!')
+        return redirect()->back()->with('message_noti', 'Created category successfully!')
             ->with('type', 'success');
     }
 

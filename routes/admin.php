@@ -27,11 +27,22 @@ Route::namespace('Admin')->group(function () {
         Route::get('/home', 'HomeController@root')->name('admin.home');
         Route::get('/setting', 'AdminController@changePassword');
         Route::post('/change-password', 'AdminController@updatePassword')->name('admin.update.password');
+
         //category route
         Route::get('/category', 'CategoryController@index');
         Route::post('/category/create', 'CategoryController@store');
         Route::put('category/update/{id}', 'CategoryController@update');
         Route::delete('category/delete/{id}', 'CategoryController@delete');
+
+        //brand route
+        Route::get('/brand', 'BrandController@index');
+        Route::get('/brand/edit/{id}', 'BrandController@edit');
+        Route::post('/brand/create', 'BrandController@store');
+        Route::put('brand/update/{id}', 'BrandController@update');
+        Route::delete('brand/delete/{id}', 'BrandController@delete');
+
+
+
         Route::get('{any}', 'HomeController@index');
     });
 });

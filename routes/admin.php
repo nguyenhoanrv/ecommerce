@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Admin')->group(function () {
 
+    // Auth::guard('admin')->routes();
     Route::get('/login', 'Auth\LoginController@showLoginForm');
     Route::post('/login', 'Auth\LoginController@login')->name('admin.login');
-    Route::get('/register', 'Auth\RegisterController@showRegisterForm');
+    Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
     Route::post('/register', 'Auth\RegisterController@register')->name('admin.register');
 
     Route::post('/logout', 'Auth\LoginController@logout')->name('admin.logout');

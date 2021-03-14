@@ -49,6 +49,11 @@ Route::namespace('Admin')->group(function () {
         Route::put('subcategory/update/{id}', 'SubcategoryController@update');
         Route::delete('subcategory/delete/{id}', 'SubcategoryController@delete');
 
+        //coupon route
+        Route::get('/coupon', 'CouponController@index');
+        Route::post('/coupon/create', 'CouponController@store');
+        Route::put('coupon/update/{id}', 'CouponController@update');
+        Route::delete('coupon/delete/{id}', 'CouponController@delete');
 
 
         Route::get('{any}', 'HomeController@index');

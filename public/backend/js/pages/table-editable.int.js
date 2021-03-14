@@ -8,6 +8,8 @@ $(function() {
                 .attr("title", "Save");
         },
         save: function(t) {
+            const url = $(".table-edits tr").attr("data-url");
+            console.log(url);
             $(".edit i", this)
                 .removeClass("fa-save")
                 .addClass("fa-pencil-alt")
@@ -20,19 +22,19 @@ $(function() {
             });
             $.ajax({
                 type: "POST",
-                url: "category/update/" + t.id,
+                url: url + "/update/" + t.id,
                 cache: "false",
                 dataType: "json",
                 data: {
                     _method: "PUT",
-                    category_name: t.category_name
+                    ...t
                 },
 
                 success: function(res) {
-                    if (res.check) toastr[res.type](res.message);
+                    toastr[res.type](res.message);
                 },
                 error: function() {
-                    console.log("err");
+                    toastr["error"]("Invalid data. Nothing saved");
                 }
             });
         },

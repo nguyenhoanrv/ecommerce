@@ -1,4 +1,4 @@
-@extends('admin.layouts.app') @section('title', 'Category | Admin')
+@extends('admin.layouts.app') @section('title', 'Coupon | Admin')
 @section('css')
     <link href="{{ asset('backend/libs/sweetalert2/sweetalert2.min.css') }}" rel="stylesheet" type="text/css" />
 @endsection
@@ -6,14 +6,14 @@
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Category</h4>
+                <h4 class="mb-sm-0 font-size-18">Coupon</h4>
 
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item">
-                            <a href="javascript: void(0);">Category</a>
+                            <a href="javascript: void(0);">Coupon</a>
                         </li>
-                        <li class="breadcrumb-item active">Category</li>
+                        <li class="breadcrumb-item active">Coupon</li>
                     </ol>
                 </div>
             </div>
@@ -21,11 +21,11 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Create new category</h5>
+                    <h5 class="card-title">Create new coupon</h5>
                     <div>
                         <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
                             data-bs-target=".bs-example-modal-center">
-                            Create Category
+                            Create coupon
                         </button>
 
                         <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-hidden="true"
@@ -33,20 +33,32 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title">New category</h5>
+                                        <h5 class="modal-title">New coupon</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form method="POST" id="form-category"
-                                            action="{{ URL::to('admin/category/create') }}">
+                                        <form method="POST" id="form-coupon"
+                                            action="{{ URL::to('admin/coupon/create') }}">
                                             @csrf
-                                            <div class="mb-4">
-                                                <label for="category-name" class="form-label">Category Name</label>
+                                            <div class="mb-2">
+                                                <label for="coupon-name" class="form-label">Coupon Name</label>
                                                 <input type="text"
-                                                    class="form-control @error('category_name') is-invalid @enderror"
-                                                    name="category_name" id="category-name" />
-                                                @error('category_name')
+                                                    class="form-control @error('coupon_name') is-invalid @enderror"
+                                                    name="coupon_name" id="coupon-name" />
+                                                @error('coupon_name')
+                                                    <span class="invalid-feedback">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-4">
+                                                <label for="coupon-discount" class="form-label">Discount</label>
+                                                <input type="number"
+                                                    class="form-control @error('discount') is-invalid @enderror"
+                                                    name="discount" id="coupon-discount" min="0" max="100" />
+                                                @error('discount')
                                                     <span class="invalid-feedback">
                                                         {{ $message }}
                                                     </span>
@@ -79,28 +91,29 @@
             <div class="col-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Table Edits</h4>
+                        <h4 class="card-title">List coupon</h4>
                         <p class="card-title-desc">
                             Table Edits is a lightweight jQuery plugin for making
                             table rows editable.
                         </p>
-
                         <div class="table-responsive table-bordered">
                             <table class="table table-editable table-nowrap align-middle table-edits stable-hover">
                                 <thead class="table-light">
-                                    <tr data-url="category">
+                                    <tr data-url="coupon">
                                         <th>ID</th>
-                                        <th>Category Name</th>
+                                        <th>Coupon Name</th>
+                                        <th>Discount</th>
                                         <th>Edit</th>
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
-                                <tbody class="">
-                                    @foreach ($categories as $category)
-                                        <tr id="{{ $category->id }}">
-                                            <td hidden data-field="id">{{ $category->id }}</td>
+                                <tbody>
+                                    @foreach ($coupons as $coupon)
+                                        <tr id="{{ $coupon->id }}">
+                                            <td hidden data-field="id">{{ $coupon->id }}</td>
                                             <td>{{ $loop->index + 1 }}</td>
-                                            <td data-field="category_name">{{ $category->category_name }}</td>
+                                            <td data-field="coupon_name">{{ $coupon->coupon_name }}</td>
+                                            <td data-field="discount">{{ $coupon->discount }}</td>
                                             <td>
                                                 <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>
@@ -108,10 +121,10 @@
                                             </td>
                                             <td>
                                                 <form method="POST">
-                                                    {{ csrf_field() }}
-                                                    {{ method_field('DELETE') }}
-                                                    <a class=" btn btn-outline-secondary btn-sm" title="Delete"
-                                                        data-id="{{ $category->id }}">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <a class=" btn btn-outline-secondary btn-sm" title="Delete-coupon"
+                                                        data-id="{{ $coupon->id }}">
                                                         <i class="fas fa-trash-alt"></i>
                                                     </a>
                                                 </form>
@@ -126,38 +139,10 @@
             </div>
         </div>
     </div>
-    @endsection @section('script')
+@endsection
+@section('script')
     <script src="{{ URL::asset('backend/libs/table-edits/build/table-edits.min.js') }}"></script>
     <script src="{{ URL::asset('backend/js/pages/table-editable.int.js') }}"></script>
     <script src="{{ URL::asset('backend/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ URL::asset('backend/js/pages/sweet-alerts.init.js') }}"></script>
-    <script>
-        // $('#form-category').on("submit", function(e) {
-        //     e.preventDefault();
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        //     });
-        //     $.ajax({
-        //         type: "POST",
-        //         url: "category/create",
-        //         cache: "false",
-        //         data: {
-        //             "_token": "{{ csrf_token() }}",
-        //             "category_name": e.target[1].value
-        //         },
-        //         success: function(res) {
-        //             $("#modal").modal('hide');
-        //             e.target[1].value = ""
-        //         },
-        //         error: function() {
-        //             console.log("eerr");
-        //         }
-        //     });
-
-
-        // });
-
-    </script>
 @endsection

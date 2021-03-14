@@ -36,12 +36,11 @@
                   <li>
                       <a href="javascript: void(0);" class="has-arrow waves-effect">
                           <i class="bx bx-store"></i>
-                          <span key="t-ecommerce">Brand</span>
+                          <span key="t-ecommerce">Coupon</span>
                       </a>
                       <ul class="sub-menu" aria-expanded="false">
-                          <li><a href="ecommerce-products.html" key="t-products">Products</a></li>
-                          <li><a href="ecommerce-product-detail.html" key="t-product-detail">Product Detail</a></li>
-                          <li><a href="ecommerce-add-product.html" key="t-add-product">Add Product</a></li>
+                          <li><a href="{{ URL::to('/admin/coupon') }}" key="t-coupon">Coupon</a></li>
+                          <li><a href="{{ URL::to('/admin/latter') }}" key="t-latter">New latter</a></li>
                       </ul>
                   </li>
                   <li class="menu-title" key="t-apps">Apps</li>

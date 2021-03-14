@@ -36,14 +36,12 @@ class CategoryController extends Controller
             $category = Category::findOrFail($id);
             if ($request->category_name === $category->category_name) {
                 return response()->json([
-                    'check' => true,
                     'type' => 'info',
                     'message'   => 'Nothing update!'
                 ]);
             }
             $category->category_name = $request->category_name;
             return response()->json([
-                'check' => true,
                 'type' => 'success',
                 'message'   => 'Update category successfully!'
             ]);

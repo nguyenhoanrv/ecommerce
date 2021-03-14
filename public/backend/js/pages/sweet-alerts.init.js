@@ -1,3 +1,45 @@
+function delete_item(url, id) {
+    // event.preventDefault();
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: !0,
+        confirmButtonColor: "#34c38f",
+        cancelButtonColor: "#f46a6a",
+        confirmButtonText: "Yes, delete it!"
+    }).then(function(t) {
+        if (t.isConfirmed) {
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                }
+            });
+            $.ajax({
+                url: url + id,
+                type: "delete",
+                dataType: "JSON",
+                data: {},
+                success: function(response) {
+                    if (response.check) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                        $("#" + id).remove();
+                    }
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText); // this line will save you tons of hours while debugging
+                    // do something here because of error
+                }
+            });
+        }
+    });
+}
 !(function(t) {
     "use strict";
     function e() {}
@@ -27,142 +69,20 @@
                 });
             }),
             t("[title=Delete]").click(function(e) {
-                e.preventDefault();
                 const id = $(this).attr("data-id");
-                console.log();
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    confirmButtonColor: "#34c38f",
-                    cancelButtonColor: "#f46a6a",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(function(t) {
-                    if (t.isConfirmed) {
-                        $.ajaxSetup({
-                            headers: {
-                                "X-CSRF-TOKEN": $(
-                                    'meta[name="csrf-token"]'
-                                ).attr("content")
-                            }
-                        });
-                        $.ajax({
-                            url: "category/delete/" + id,
-                            type: "delete",
-                            dataType: "JSON",
-                            data: {},
-                            success: function(response) {
-                                if (response.check) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted.",
-                                        icon: "success",
-                                        showConfirmButton: false,
-                                        timer: 1000
-                                    });
-                                    $("#" + id).remove();
-                                }
-                            },
-                            error: function(xhr) {
-                                console.log(xhr.responseText); // this line will save you tons of hours while debugging
-                                // do something here because of error
-                            }
-                        });
-                    }
-                });
+                delete_item("category/delete/", id);
             }),
             t("[title='Delete-brand']").click(function(e) {
-                e.preventDefault();
                 const id = $(this).attr("data-id");
-                console.log();
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    confirmButtonColor: "#34c38f",
-                    cancelButtonColor: "#f46a6a",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(function(t) {
-                    if (t.isConfirmed) {
-                        $.ajaxSetup({
-                            headers: {
-                                "X-CSRF-TOKEN": $(
-                                    'meta[name="csrf-token"]'
-                                ).attr("content")
-                            }
-                        });
-                        $.ajax({
-                            url: "brand/delete/" + id,
-                            type: "delete",
-                            dataType: "JSON",
-                            data: {},
-                            success: function(response) {
-                                if (response.check) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted.",
-                                        icon: "success",
-                                        showConfirmButton: false,
-                                        timer: 1000
-                                    });
-                                    $("#" + id).remove();
-                                }
-                            },
-                            error: function(xhr) {
-                                console.log(xhr.responseText); // this line will save you tons of hours while debugging
-                                // do something here because of error
-                            }
-                        });
-                    }
-                });
+                delete_item("brand/delete/", id);
             }),
             t("[title='Delete-subcategory']").click(function(e) {
-                e.preventDefault();
                 const id = $(this).attr("data-id");
-                console.log();
-                Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: !0,
-                    confirmButtonColor: "#34c38f",
-                    cancelButtonColor: "#f46a6a",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(function(t) {
-                    if (t.isConfirmed) {
-                        $.ajaxSetup({
-                            headers: {
-                                "X-CSRF-TOKEN": $(
-                                    'meta[name="csrf-token"]'
-                                ).attr("content")
-                            }
-                        });
-                        $.ajax({
-                            url: "subcategory/delete/" + id,
-                            type: "delete",
-                            dataType: "JSON",
-                            data: {},
-                            success: function(response) {
-                                if (response.check) {
-                                    Swal.fire({
-                                        title: "Deleted!",
-                                        text: "Your file has been deleted.",
-                                        icon: "success",
-                                        showConfirmButton: false,
-                                        timer: 1000
-                                    });
-                                    $("#" + id).remove();
-                                }
-                            },
-                            error: function(xhr) {
-                                console.log(xhr.responseText); // this line will save you tons of hours while debugging
-                                // do something here because of error
-                            }
-                        });
-                    }
-                });
+                delete_item("subcategory/delete/", id);
+            }),
+            t("[title='Delete-coupon']").click(function(e) {
+                const id = $(this).attr("data-id");
+                delete_item("coupon/delete/", id);
             }),
             t("#sa-params").click(function() {
                 Swal.fire({

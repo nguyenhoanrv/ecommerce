@@ -39,7 +39,8 @@ class SubcategoryController extends Controller
             ]);
             $subcategory = Subcategory::findOrFail($id);
             if (
-                $request->category_name == $subcategory->category->category_name
+                $subcategory->category &&
+                $request->category_name ==  $subcategory->category->category_name
                 && $request->subcategory_name == $subcategory->subcategory_name
             ) {
                 return response()->json([

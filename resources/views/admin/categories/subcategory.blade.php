@@ -123,8 +123,7 @@
                                                 {{ $subcategory->subcategory_name }}
                                             </td>
                                             <td data-field="category_name">
-                                                {{ $subcategory->category->category_name }}
-
+                                                {{ $subcategory->category->category_name ?? 'undefine' }}
                                             </td>
                                             <td>
                                                 <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
@@ -179,8 +178,6 @@
                         .attr("title", "Save");
                 },
                 save: function(t) {
-                    console.log(t);
-
                     $(".edit i", this)
                         .removeClass("fa-save")
                         .addClass("fa-pencil-alt")

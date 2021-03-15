@@ -40,7 +40,7 @@
                       </a>
                       <ul class="sub-menu" aria-expanded="false">
                           <li><a href="{{ URL::to('/admin/coupon') }}" key="t-coupon">Coupon</a></li>
-                          <li><a href="{{ URL::to('/admin/latter') }}" key="t-latter">New latter</a></li>
+                          <li><a href="{{ URL::to('/admin/newletter') }}" key="t-letter">New letter</a></li>
                       </ul>
                   </li>
                   <li class="menu-title" key="t-apps">Apps</li>

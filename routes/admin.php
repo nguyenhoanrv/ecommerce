@@ -55,6 +55,10 @@ Route::namespace('Admin')->group(function () {
         Route::put('coupon/update/{id}', 'CouponController@update');
         Route::delete('coupon/delete/{id}', 'CouponController@delete');
 
+        //newletter
+        Route::get('/newletter', 'NewletterController@index');
+        Route::post('/newletter/create', 'NewletterController@store');
+        Route::delete('newletter/delete/{id}', 'NewletterController@delete');
 
         Route::get('{any}', 'HomeController@index');
     });

@@ -84,6 +84,10 @@ function delete_item(url, id) {
                 const id = $(this).attr("data-id");
                 delete_item("coupon/delete/", id);
             }),
+            t("[title='Delete-newletter']").click(function(e) {
+                const id = $(this).attr("data-id");
+                delete_item("newletter/delete/", id);
+            }),
             t("#sa-params").click(function() {
                 Swal.fire({
                     title: "Are you sure?",

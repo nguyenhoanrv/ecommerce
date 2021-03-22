@@ -60,6 +60,13 @@ Route::namespace('Admin')->group(function () {
         Route::post('/newletter/create', 'NewletterController@store');
         Route::delete('newletter/delete/{id}', 'NewletterController@delete');
 
+        //product
+        Route::get('/product', 'ProductController@index');
+        // Route::post('/product/create', 'ProductController@store');
+        // Route::put('/product/update/{id}', 'ProductController');
+        // Route::delete('product/delete/{id}', 'ProductController@delete');
+
+
         Route::get('{any}', 'HomeController@index');
     });
 });

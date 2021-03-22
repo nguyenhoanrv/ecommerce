@@ -12,4 +12,9 @@ class Brand extends Model
     protected $fillable = [
         'brand_name', 'brand_logo'
     ];
+
+    public function products()
+    {
+        $this->belongsTo(Brand::class);
+    }
 }

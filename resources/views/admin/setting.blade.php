@@ -31,6 +31,7 @@
                                         <button class="btn btn-light " type="button" id="password-addon">
                                             <i class="mdi mdi-eye-outline"></i>
                                         </button>
+
                                         @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}

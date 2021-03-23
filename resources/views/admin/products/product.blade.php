@@ -23,7 +23,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Create new product</h5>
                     <div>
-                        <a href="{{ URL::to('/product/create') }}" class="btn btn-primary waves-effect waves-light">
+                        <a href="{{ URL::to('/admin/product/create') }}" class="btn btn-primary waves-effect waves-light">
                             Create product
                         </a>
                         <!-- /.modal -->

@@ -68,4 +68,10 @@ class SubcategoryController extends Controller
             'check' => $check
         ]);
     }
+
+    public function get(Request $request)
+    {
+        $subcategory = Subcategory::where('category_id', $request->category_id)->get();
+        return response()->json($subcategory);
+    }
 }

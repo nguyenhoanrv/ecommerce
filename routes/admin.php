@@ -45,6 +45,7 @@ Route::namespace('Admin')->group(function () {
 
         //subcategory route
         Route::get('/subcategory', 'SubcategoryController@index');
+        Route::get('/subcategory/get', 'SubcategoryController@get');
         Route::post('/subcategory/create', 'SubcategoryController@store');
         Route::put('subcategory/update/{id}', 'SubcategoryController@update');
         Route::delete('subcategory/delete/{id}', 'SubcategoryController@delete');
@@ -62,10 +63,10 @@ Route::namespace('Admin')->group(function () {
 
         //product
         Route::get('/product', 'ProductController@index');
-        // Route::post('/product/create', 'ProductController@store');
+        Route::get('/product/create', 'ProductController@create');
+        Route::post('/product/store', 'ProductController@store')->name('product.store');
         // Route::put('/product/update/{id}', 'ProductController');
         // Route::delete('product/delete/{id}', 'ProductController@delete');
-
 
         Route::get('{any}', 'HomeController@index');
     });

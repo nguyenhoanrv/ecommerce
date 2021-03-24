@@ -64,9 +64,11 @@ Route::namespace('Admin')->group(function () {
         //product
         Route::get('/product', 'ProductController@index');
         Route::get('/product/create', 'ProductController@create');
+        Route::get('/product/edit/{id}', 'ProductController@edit');
         Route::post('/product/store', 'ProductController@store')->name('product.store');
-        // Route::put('/product/update/{id}', 'ProductController');
-        // Route::delete('product/delete/{id}', 'ProductController@delete');
+        Route::post('/product/status', 'ProductController@changeStatus');
+        Route::put('/product/update/{id}', 'ProductController@update')->name('product.update');
+        Route::delete('product/delete/{id}', 'ProductController@delete');
 
         Route::get('{any}', 'HomeController@index');
     });

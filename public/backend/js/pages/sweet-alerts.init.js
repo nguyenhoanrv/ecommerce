@@ -88,6 +88,10 @@ function delete_item(url, id) {
                 const id = $(this).attr("data-id");
                 delete_item("newletter/delete/", id);
             }),
+            t("[title='Delete-product']").click(function(e) {
+                const id = $(this).attr("data-id");
+                delete_item("product/delete/", id);
+            }),
             t("#sa-params").click(function() {
                 Swal.fire({
                     title: "Are you sure?",

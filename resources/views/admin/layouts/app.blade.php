@@ -90,7 +90,6 @@
 
 
   <script>
-    console.log("{{ session('message_noti') }}");
     @if(session('message_noti'))
         toastr["{{ session('type') }}"]("{{ session('message_noti') }}")
     @endif

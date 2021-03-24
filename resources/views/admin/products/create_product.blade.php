@@ -64,7 +64,7 @@
                                             class="form-control @error('product_quantity') is-invalid @enderror"
                                             id="formrow-quantity" name="product_quantity"
                                             value="{{ old('product_quantity') }}">
-                                        @error('product_quantily')
+                                        @error('product_quantity')
                                             <strong class="invalid-feedback">
                                                 {{ $message }}
                                             </strong>
@@ -173,8 +173,7 @@
                                         plugin that makes it easy to create simple, beautiful wysiwyg editors
                                         with the help of wysihtml5 and Twitter Bootstrap.</p </div>
                                     <textarea id="elm1" name="product_details"
-                                        class="@error('description') is-invalid @enderror"
-                                        value="{{ old('product_details') }}"></textarea>
+                                        class="@error('description') is-invalid @enderror">{{ old('product_details') }}</textarea>
                                     @error('product_details')
                                         <strong class="invalid-feedback">
                                             {{ $message }}
@@ -186,7 +185,8 @@
                                     <div class="col-lg-4">
                                         <div class="mt-3">
                                             <label for="image1" class="form-label">Image One</label>
-                                            <input class="form-control" type="file" id="image1" accept=".png, .jpg, .jpeg">
+                                            <input class="form-control" type="file" id="image1" accept=".png, .jpg, .jpeg"
+                                                name="image_one">
                                         </div>
                                         <img src="" id="preview1" class="mt-3">
                                     </div>
@@ -194,7 +194,8 @@
                                     <div class="col-lg-4">
                                         <div class="mt-3">
                                             <label for="image2" class="form-label">Image Two</label>
-                                            <input class="form-control" type="file" id="image2" accept=".png, .jpg, .jpeg">
+                                            <input class="form-control" type="file" id="image2" accept=".png, .jpg, .jpeg"
+                                                name="image_two">
                                         </div>
                                         <img src="" id="preview2" class="mt-3">
                                     </div>
@@ -202,7 +203,8 @@
                                     <div class="col-lg-4">
                                         <div class="mt-3">
                                             <label for="image3" class="form-label">Image Three</label>
-                                            <input class="form-control" type="file" id="image3" accept=".png, .jpg, .jpeg">
+                                            <input class="form-control" type="file" id="image3" accept=".png, .jpg, .jpeg"
+                                                name="image_three">
                                         </div>
                                         <img src="" id="preview3" class="mt-3">
                                     </div>
@@ -210,8 +212,7 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-primary mt-3">
-                                            <input class="form-check-input" type="checkbox" id="main-slider"
-                                                name="main_slider">
+                                            <input class="form-check-input" type="checkbox" id="main-slider" value="1" @if (old('main_slider')) checked @endif name="main_slider">
                                             <label class="form-check-label" for="main-slider">
                                                 Main Slider
                                             </label>
@@ -219,7 +220,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-success mt-3">
-                                            <input class="form-check-input" type="checkbox" id="hot-deal" name="hot_deal">
+                                            <input class="form-check-input" type="checkbox" id="hot-deal" value="1" @if (old('hot_deal')) checked @endif name="hot_deal">
                                             <label class="form-check-label" for="hot-deal">
                                                 Hot Deal
                                             </label>
@@ -227,8 +228,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-info mt-3">
-                                            <input class="form-check-input" type="checkbox" id="best_rated"
-                                                name="best_rated">
+                                            <input class="form-check-input" type="checkbox" id="best_rated" value="1" @if (old('best_rated')) checked @endif name="best_rated">
                                             <label class="form-check-label" for="best_rated">
                                                 Best Rated
                                             </label>
@@ -239,7 +239,8 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-warning mt-3">
-                                            <input class="form-check-input" type="checkbox" id="trend-product" name="trend">
+                                            <input class="form-check-input" type="checkbox" id="trend-product" name="trend"
+                                                @if (old('trend')) checked @endif value="1">
                                             <label class="form-check-label" for="trend-product">
                                                 Trend Product
                                             </label>
@@ -247,8 +248,8 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-danger mt-3">
-                                            <input class="form-check-input" type="checkbox" id="mid-slider"
-                                                name="mid_slider">
+                                            <input class="form-check-input" type="checkbox" id="mid-slider" @if (old('mid_slider')) checked @endif
+                                                name="mid_slider" value="1">
                                             <label class="form-check-label" for="mid-slider">
                                                 Mid Slider
                                             </label>
@@ -256,7 +257,7 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-check form-check-primary mt-3">
-                                            <input class="form-check-input" type="checkbox" id="hot-new" name="hot_new">
+                                            <input class="form-check-input" type="checkbox" id="hot-new" name="hot_new" @if (old('hot_new')) checked @endif value="1">
                                             <label class="form-check-label" for="hot-new">
                                                 Hot New
                                             </label>

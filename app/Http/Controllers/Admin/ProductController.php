@@ -89,6 +89,7 @@ class ProductController extends Controller
             'image_two' => 'mimes:png,jpg,jpeg',
             'image_three' => 'mimes:png,jpg,jpeg',
         ]);
+
         $product = Product::findOrFail($id);
         if ($request->hasFile('image_one')) {
             if ($product->image_one) {
@@ -109,6 +110,24 @@ class ProductController extends Controller
             $product->image_three = $this->moveImage($request->file('image_three'));
         }
         $product->fill($request->except(['image_one', 'image_two', 'image_three']));
+        if (!$request->has('main_slider')) {
+            $product->main_slider = 0;
+        }
+        if (!$request->has('trend')) {
+            $product->trend = 0;
+        }
+        if (!$request->has('hot_deal')) {
+            $product->hot_deal = 0;
+        }
+        if (!$request->has('mid_slider')) {
+            $product->mid_slider = 0;
+        }
+        if (!$request->has('best_rated')) {
+            $product->best_rated = 0;
+        }
+        if (!$request->has('hot_new')) {
+            $product->hot_new = 0;
+        }
         $product->save();
         return back()->with('message_noti', 'Update Product Successfully!')->with('type', 'success');
     }

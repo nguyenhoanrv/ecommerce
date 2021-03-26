@@ -113,7 +113,7 @@
                                             <td hidden data-field="id">{{ $coupon->id }}</td>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td data-field="coupon_name">{{ $coupon->coupon_name }}</td>
-                                            <td data-field="discount">{{ $coupon->discount }}</td>
+                                            <td data-field="discount">{{ $coupon->discount }}%</td>
                                             <td>
                                                 <a class="btn btn-outline-secondary btn-sm edit" title="Edit">
                                                     <i class="fas fa-pencil-alt"></i>

@@ -42,5 +42,6 @@
 <link rel="stylesheet" href="{{ asset('frontend/style.css') }}">
 <!-- Responsive CSS -->
 <link rel="stylesheet" href="{{ asset('frontend/css/responsive.css') }}">
+<link rel="stylesheet" href="{{ asset('frontend/css/toastr.css') }}">
 <!-- Modernizr js -->
 <script src="{{ asset('frontend/js/vendor/modernizr-2.8.3.min.js') }}"></script>

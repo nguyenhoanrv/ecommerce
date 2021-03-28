@@ -22,11 +22,11 @@ $mid_sliders = DB::table('products')
                     <div class="slider-active owl-carousel">
                         @foreach ($sliders as $slider)
                             <div class="{{ 'single-slide align-center-left bg animation-style-0' . $loop->index % 2 + 1 }}"
-                                id="{{ $slider->id }}">
+                                id="{{ 'slider' . $slider->id }}">
                                 <script type="text/javascript">
                                     var id = {!! json_encode($slider->id) !!};
                                     var url = {!! json_encode($slider->image_one) !!};
-                                    $('#' + id).css('background-image', `url(${url})`);
+                                    document.getElementById('slider' + id).style.backgroundImage = `url(${url})`;
 
                                 </script>
                                 <div class="slider-progress"></div>
@@ -58,6 +58,20 @@ $mid_sliders = DB::table('products')
                 </div>
             </div>
             <!-- Li Banner Area End Here -->
+        </div>
+    </div>
+</div>
+
+
+<div class="static-top-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="static-top-content mt-sm-30">
+                    Gift Special: Gift every single day on Weekends - New Coupon code "
+                    <span>LimupaSaleoff</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>

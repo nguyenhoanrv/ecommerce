@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,17 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+//Wishlist
+
+Route::post('/wishlist/store', 'WishlistController@store');
+
+//Product 
+Route::get('/product/get/{id}', function ($id) {
+    $product = Product::findOrFail($id);
+    return response()->json([
+        'product' => $product
+    ]);
+});
+Route::get('/admin', 'Admin\HomeController@root');
+Route::get('{any}', 'HomeController@index');

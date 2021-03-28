@@ -1527,6 +1527,7 @@ textarea:focus {
     position: relative;
 }
 .ht-setting-trigger,
+.ht-setting-trigger-login,
 .ht-currency-trigger,
 .ht-language-trigger {
     cursor: pointer;
@@ -1967,14 +1968,17 @@ textarea:focus {
     transition: all 0.3s ease-in-out;
 }
 .ht-menu > li:hover .ht-currency-trigger span,
+.ht-setting-trigger-login:hover a,
 .ht-menu > li:hover .ht-currency-trigger span::after,
 .ht-menu > li:hover .ht-language-trigger span,
 .ht-menu > li:hover .ht-language-trigger span::after {
     color: #fed700;
 }
+
 .ht-menu > li .ht-setting-trigger span::after,
 .ht-menu > li .ht-currency-trigger span::after,
 .ht-menu > li .ht-language-trigger span::after,
+.ht-menu > li .ht-setting-trigger-login span::after,
 .hm-minicart-trigger .item-text::after {
     content: "\f107";
     font-size: 14px;
@@ -1988,6 +1992,7 @@ textarea:focus {
 .ht-menu > li .ht-setting-trigger.is-active span::after,
 .ht-menu > li .ht-currency-trigger.is-active span::after,
 .ht-menu > li .ht-language-trigger.is-active span::after,
+.ht-menu > li .ht-setting-trigger-login.is-active span::after,
 .hm-minicart-trigger.is-active .item-text::after {
     transform: rotate(-180deg);
 }
@@ -5664,6 +5669,13 @@ span.required {
 }
 .small-version {
     display: none;
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+.fa.fa-heart {
+    color: rgb(221, 40, 40) !important;
 }
 /*----------------------------------------------------------------------------------------------------*/
 /*------------------------------------------> The End <-----------------------------------------------*/

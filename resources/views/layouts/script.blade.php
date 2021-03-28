@@ -37,5 +37,66 @@
  <script src="{{ asset('frontend/js/jquery.nice-select.min.js') }}"></script>
  <!-- ScrollUp js -->
  <script src="{{ asset('frontend/js/scrollUp.min.js') }}"></script>
+ <script src="{{ asset('frontend/js/toastr.min.js') }}"></script>
  <!-- Main/Activator js -->
  <script src="{{ asset('frontend/js/main.js') }}"></script>
+<script>
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }
+   @if(session('message'))
+        toastr["{{ session('type') }}"]("{{ session('message') }}")
+        @endif
+    </script>
+
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
+        $('.links-details').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "/wishlist/store",
+                cache: "false",
+                dataType: "json",
+                data: {
+                    product_id: $(this).attr('data-product-id')
+                },
+
+                success: (res) => {
+                    var count = $('.wishlist-item-count').text();
+                    if (!res.check) {
+                        $(this).children().removeClass('fa fa-heart-o');
+                        $(this).children().addClass('fa fa-heart');
+                        $('.wishlist-item-count').text(parseInt(count) + 1)
+                        toastr[res.type](res.message)
+                    } else {
+                        $(this).children().removeClass('fa fa-heart');
+                        $(this).children().addClass('fa fa-heart-o');
+                        $('.wishlist-item-count').text(parseInt(count) - 1)
+                        toastr[res.type](res.message)
+                    }
+                },
+                error: function() {}
+            });
+
+        });
+
+    </script>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('wellcome');
 
 Auth::routes();
 
@@ -28,12 +29,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Wishlist
-
+Route::get('/wishlist', 'WishlistController@index')->middleware('auth')->name('wishlist');
+Route::delete('/wishlist/delete/{id}', 'WishlistController@delete');
 Route::post('/wishlist/store', 'WishlistController@store');
 
 //Product 
 Route::get('/product/get/{id}', function ($id) {
-    $product = Product::findOrFail($id);
+    $product = Product::with('brand:id,brand_name')->findOrFail($id);
     return response()->json([
         'product' => $product
     ]);

@@ -77,9 +77,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
     /*----------------------------------------*/
     /*  04. Nice Select
 /*----------------------------------------*/
-    $(document).ready(function() {
-        $(".nice-select").niceSelect();
-    });
+
     /*----------------------------------------*/
     /* 05. Main Slider Activision
 /*----------------------------------------*/
@@ -466,61 +464,229 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
     /*----------------------------------------*/
     /* 21. Modal Menu Active
  /*----------------------------------------*/
+    $(".quick-view").click(function(e) {
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
+        const id = $(this).attr("data-product-id");
+        console.log(id);
+        $.ajax({
+            type: "GET",
+            url: "/product/get/" + id,
+            dataType: "json",
+            data: {},
 
-    $(".product-details-images").each(function() {
-        var $this = $(this);
-        var $thumb = $this.siblings(".product-details-thumbs, .tab-style-left");
-        $this.slick({
-            arrows: false,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            autoplay: false,
-            autoplaySpeed: 5000,
-            dots: false,
-            infinite: true,
-            centerMode: false,
-            centerPadding: 0,
-            asNavFor: $thumb
-        });
-    });
-    $(".product-details-thumbs").each(function() {
-        var $this = $(this);
-        var $details = $this.siblings(".product-details-images");
-        $this.slick({
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            autoplay: false,
-            autoplaySpeed: 5000,
-            dots: false,
-            infinite: true,
-            focusOnSelect: true,
-            centerMode: true,
-            centerPadding: 0,
-            prevArrow:
-                '<span class="slick-prev"><i class="fa fa-angle-left"></i></span>',
-            nextArrow:
-                '<span class="slick-next"><i class="fa fa-angle-right"></i></span>',
-            asNavFor: $details
-        });
-    });
-    $(".tab-style-left, .tab-style-right").each(function() {
-        var $this = $(this);
-        var $details = $this.siblings(".product-details-images");
-        $this.slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: false,
-            autoplaySpeed: 5000,
-            dots: false,
-            infinite: true,
-            focusOnSelect: true,
-            vertical: true,
-            centerPadding: 0,
-            prevArrow:
-                '<span class="slick-prev"><i class="fa fa-angle-down"></i></span>',
-            nextArrow:
-                '<span class="slick-next"><i class="fa fa-angle-up"></i></span>',
-            asNavFor: $details
+            success: res => {
+                const product = res.product;
+                const size = product.product_size.split(",");
+                let htmlSize = size.reduce(
+                    (accumulator, e) =>
+                        accumulator +
+                        `<option value="${e}" title="${e}">${e}</option>`,
+                    ""
+                );
+                var html = ` 
+                                        <div class="col-lg-5 col-md-6 col-sm-6">
+                                            <!-- Product Details Left -->
+                                            <div class="product-details-left">
+                                                <div class="product-details-images slider-navigation-1">
+
+                                                    <div class="lg-image" slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 335px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+                                                        <img src="${
+                                                            product.image_one
+                                                        }" alt="product image" width="335px" height="335px" style="object-fit: cover">
+                                                    </div>
+                                                    <div class="lg-image"  slick-slide slick-current slick-active" data-slick-index="1" aria-hidden="false" style="width: 335px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+                                                        <img src="${
+                                                            product.image_two
+                                                        }" alt="product image" width="335px" height="335px" style="object-fit: cover">
+                                                    </div>
+                                                    <div class="lg-image" slick-slide slick-current slick-active" data-slick-index="2" aria-hidden="false" style="width: 335px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+                                                        <img src="${
+                                                            product.image_three
+                                                        }" alt="product image" width="335px" height="335px" style="object-fit: cover">
+                                                    </div>
+                                                </div>
+                                                <div class="product-details-thumbs slider-thumbs-1">
+                                                    <div class="sm-image"><img src="${
+                                                        product.image_one
+                                                    }" width="77px" height="77px"
+                                                            alt="product image thumb"></div>
+                                                    <div class="sm-image"><img src="${
+                                                        product.image_two
+                                                    }" width="77px" height="77px"
+                                                            alt="product image thumb"></div>
+                                                    <div class="sm-image"><img src="${
+                                                        product.image_three
+                                                    }" width="77px" height="77px"
+                                                            alt="product image thumb"></div>
+                                                </div>
+                                            </div>
+                                            <!--// Product Details Left -->
+                                        </div>
+
+                                        <div class="col-lg-7 col-md-6 col-sm-6">
+                                            <div class="product-details-view-content pt-60">
+                                                <div class="product-info">
+                                                    <h2>${
+                                                        product.product_name
+                                                    }</h2>
+                                                    <span class="product-details-ref">Brand: ${
+                                                        product.brand.brand_name
+                                                    }</span>
+                                                    <div class="rating-box pt-20">
+                                                        <ul class="rating rating-with-review-item">
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li><i class="fa fa-star-o"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            <li class="no-star"><i class="fa fa-star-o"></i></li>
+                                                            <li class="review-item"><a href="#">Read Review</a></li>
+                                                            <li class="review-item"><a href="#">Write Review</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="price-box pt-20">
+                                                        <span class="new-price new-price-2">$${product.discount_price ??
+                                                            product.selling_price}</span>
+                                                    </div>
+                                                    <div class="product-desc">
+                                                        ${
+                                                            product.product_details
+                                                        }
+                                                    </div>
+                                                    <div class="product-variants">
+                                                        <div class="produt-variants-size">
+                                                            <label>Dimension</label>
+                                                            <select class="nice-select">
+                                                                ${htmlSize}
+                                                             
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-add-to-cart">
+                                                        <form action="#" class="cart-quantity">
+                                                            <div class="quantity">
+                                                                <label>Quantity</label>
+                                                                <div class="cart-plus-minus">
+                                                                    <input class="cart-plus-minus-box" value="1" type="text">
+                                                                    <div class="dec qtybutton"><i class="fa fa-angle-down"></i>
+                                                                    </div>
+                                                                    <div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="add-to-cart" type="submit">Add to cart</button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="product-additional-info pt-25">
+                                                        <a class="wishlist-btn links-details" data-product-id="${
+                                                            product.id
+                                                        }"><i
+                                                                class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                        <div class="product-social-sharing pt-25">
+                                                            <ul>
+                                                                <li class="facebook"><a href="#"><i
+                                                                            class="fa fa-facebook"></i>Facebook</a></li>
+                                                                <li class="twitter"><a href="#"><i
+                                                                            class="fa fa-twitter"></i>Twitter</a></li>
+                                                                <li class="google-plus"><a href="#"><i
+                                                                            class="fa fa-google-plus"></i>Google +</a></li>
+                                                                <li class="instagram"><a href="#"><i
+                                                                            class="fa fa-instagram"></i>Instagram</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                            `;
+                $("#content-modal").html(html);
+                $(".product-details-images").each(function() {
+                    var $this = $(this);
+                    var $thumb = $this.siblings(
+                        ".product-details-thumbs, .tab-style-left"
+                    );
+                    $this.slick({
+                        arrows: false,
+                        slidesToShow: 1,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        autoplaySpeed: 5000,
+                        dots: false,
+                        infinite: true,
+                        centerMode: false,
+                        centerPadding: 0,
+                        asNavFor: $thumb
+                    });
+                });
+                $(".product-details-thumbs").each(function() {
+                    var $this = $(this);
+                    var $details = $this.siblings(".product-details-images");
+                    $this.slick({
+                        slidesToShow: 4,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        autoplaySpeed: 5000,
+                        dots: false,
+                        infinite: true,
+                        focusOnSelect: true,
+                        centerMode: true,
+                        centerPadding: 0,
+                        prevArrow:
+                            '<span class="slick-prev"><i class="fa fa-angle-left"></i></span>',
+                        nextArrow:
+                            '<span class="slick-next"><i class="fa fa-angle-right"></i></span>',
+                        asNavFor: $details
+                    });
+                });
+                $(".tab-style-left, .tab-style-right").each(function() {
+                    var $this = $(this);
+                    var $details = $this.siblings(".product-details-images");
+                    $this.slick({
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        autoplay: false,
+                        autoplaySpeed: 5000,
+                        dots: false,
+                        infinite: true,
+                        focusOnSelect: true,
+                        vertical: true,
+                        centerPadding: 0,
+                        prevArrow:
+                            '<span class="slick-prev"><i class="fa fa-angle-down"></i></span>',
+                        nextArrow:
+                            '<span class="slick-next"><i class="fa fa-angle-up"></i></span>',
+                        asNavFor: $details
+                    });
+                });
+                $(document).ready(function() {
+                    $(".nice-select").niceSelect();
+                });
+                $(".qtybutton").on("click", function() {
+                    var $button = $(this);
+                    var oldValue = $button
+                        .parent()
+                        .find("input")
+                        .val();
+                    if ($button.hasClass("inc")) {
+                        var newVal = parseFloat(oldValue) + 1;
+                    } else {
+                        // Don't allow decrementing below zero
+                        if (oldValue > 1) {
+                            var newVal = parseFloat(oldValue) - 1;
+                        } else {
+                            newVal = 1;
+                        }
+                    }
+                    $button
+                        .parent()
+                        .find("input")
+                        .val(newVal);
+                });
+            },
+            error: function() {}
         });
     });
     /*----------------------------------------*/
@@ -529,27 +695,7 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
     $(".cart-plus-minus").append(
         '<div class="dec qtybutton"><i class="fa fa-angle-down"></i></div><div class="inc qtybutton"><i class="fa fa-angle-up"></i></div>'
     );
-    $(".qtybutton").on("click", function() {
-        var $button = $(this);
-        var oldValue = $button
-            .parent()
-            .find("input")
-            .val();
-        if ($button.hasClass("inc")) {
-            var newVal = parseFloat(oldValue) + 1;
-        } else {
-            // Don't allow decrementing below zero
-            if (oldValue > 0) {
-                var newVal = parseFloat(oldValue) - 1;
-            } else {
-                newVal = 0;
-            }
-        }
-        $button
-            .parent()
-            .find("input")
-            .val(newVal);
-    });
+
     /*----------------------------------------*/
     /* 23. Single Prduct Carousel Activision
 /*----------------------------------------*/

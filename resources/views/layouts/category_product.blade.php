@@ -70,7 +70,8 @@ $categories = App\Models\Category::with('products')->get();
                                                             data-product-id="{{ $product->id }}"><i
                                                                 class="fa fa-heart-o"></i></a></li>
                                                     <li><a class="quick-view" data-toggle="modal"
-                                                            data-target="#exampleModalCenter" href="#"><i
+                                                            data-target="#exampleModalCenter"
+                                                            data-product-id="{{ $product->id }}"><i
                                                                 class="fa fa-eye"></i></a></li>
                                                 </ul>
                                             </div>

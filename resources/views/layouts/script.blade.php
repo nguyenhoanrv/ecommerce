@@ -94,7 +94,9 @@
                         toastr[res.type](res.message)
                     }
                 },
-                error: function() {}
+                error: function() {
+                    toastr["error"]("Please Login!")
+                }
             });
 
         });

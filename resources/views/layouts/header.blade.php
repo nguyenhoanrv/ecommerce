@@ -63,9 +63,11 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                 <div class="ht-language-trigger"><span>English</span></div>
                                 <div class="language ht-language">
                                     <ul class="ht-setting-list">
-                                        <li class="active"><a href="#"><img src="images/menu/flag-icon/1.jpg"
+                                        <li class="active"><a href="#"><img
+                                                    src="{{ asset('frontend/images/menu/flag-icon/1.jpg') }}"
                                                     alt="">English</a></li>
-                                        <li><a href="#"><img src="images/menu/flag-icon/2.jpg" alt="">Français</a></li>
+                                        <li><a href="#"><img src="{{ asset('frontend/images/menu/flag-icon/2.jpg') }}"
+                                                    alt="">Français</a></li>
                                     </ul>
                                 </div>
                             </li>
@@ -85,8 +87,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                 <!-- Begin Header Logo Area -->
                 <div class="col-lg-3">
                     <div class="logo pb-sm-30 pb-xs-30">
-                        <a href="index.html">
-                            <img src="images/menu/logo/2.jpg" alt="">
+                        <a href="{{ route('wellcome') }}">
+                            <img src="{{ asset('frontend/images/menu/logo/2.jpg') }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -176,7 +178,7 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                         <ul class="hm-menu">
                             <!-- Begin Header Middle Wishlist Area -->
                             <li class="hm-wishlist">
-                                <a href="wishlist.html">
+                                <a href="{{ route('wishlist') }}">
                                     <span class="cart-item-count wishlist-item-count">{{ count($wl) }}</span>
                                     <i class="fa fa-heart-o"></i>
                                 </a>

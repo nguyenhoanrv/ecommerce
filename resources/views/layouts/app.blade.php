@@ -45,6 +45,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <div class="modal-inner-area row" id="content-modal">
+
                         </div>
                     </div>
                 </div>
@@ -56,6 +57,10 @@
     <!-- jQuery-V1.12.4 -->
     @include('layouts.script')
     @yield('script')
+    <script>
+
+
+    </script>
 </body>
 
 <!-- index-431:47-->

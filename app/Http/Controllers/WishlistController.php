@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
+
+    public function index()
+    {
+        $wl = DB::table('wishlists')->join('products', 'products.id', '=', 'wishlists.product_id')->where('wishlists.user_id', '=', Auth::id())
+            ->select('wishlists.id as id', 'products.product_name as product_name', 'products.image_one as image_one', 'products.selling_price as selling_price', 'products.discount_price as discount_price', 'products.product_quantity as product_quantity', 'products.id as product_id')->orderByDesc('wishlists.id')->get();
+        return view('wishlist', compact('wl'));
+    }
+
     public function store(Request $request)
     {
         if (Auth::check()) {
@@ -36,10 +44,30 @@ class WishlistController extends Controller
                 ]);
             }
         }
-        return response()->json([
-            'message' => 'Plese Login',
-            'type' => 'error'
-        ]);
+        // return response()->json([
+        //     'message' => 'Plese Login',
+        //     'type' => 'error'
+        // ]);
+    }
+
+    public function delete($id)
+    {
+
+        $check = Wishlist::destroy((int)$id);
+        if ($check) {
+            return response()->json(
+                [
+                    'message' => "Delete successfully!",
+                    'type' => 'success'
+                ]
+            );
+        }
+        return response()->json(
+            [
+                'message' => "Delete error!",
+                'type' => 'warning'
+            ]
+        );
     }
 
     static public function  getWishlist()

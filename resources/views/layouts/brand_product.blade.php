@@ -1,10 +1,5 @@
 @php
-
-$brands = App\Models\Brand::with([
-    'products' => function ($query) {
-        return $query->take(3);
-    },
-])->get();
+$brands = App\Models\Brand::with('limitProducts')->get();
 @endphp
 <div class="li-static-home">
     <div class="container">

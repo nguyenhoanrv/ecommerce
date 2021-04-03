@@ -42,7 +42,7 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                 <!-- single-product-wrap start -->
                                 <div class="single-product-wrap">
                                     <div class="product-image">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}" )">
                                             <img src="{{ asset($product->image_one) }}" alt="Li's Product Image"
                                                 width="206px" height="206px" style="object-fit: cover">
                                         </a>
@@ -65,7 +65,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                                 </div>
                                             </div>
                                             <h4><a class="product_name"
-                                                    href="single-product.html">{{ $product->product_name }}</a>
+                                                    href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                    )">{{ $product->product_name }}</a>
                                             </h4>
                                             <div class="price-box">
                                                 @if ($product->discount_price)
@@ -116,7 +117,7 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                 <!-- single-product-wrap start -->
                                 <div class="single-product-wrap">
                                     <div class="product-image">
-                                        <a href="single-product.html">
+                                        <a href=" {{ route('product.detail', ['id' => $product->id]) }}">
                                             <img src="{{ asset($product->image_one) }}" alt="Li's Product Image"
                                                 width="206px" height="206px" style="object-fit: cover">
                                         </a>
@@ -139,7 +140,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                                 </div>
                                             </div>
                                             <h4><a class="product_name"
-                                                    href="single-product.html">{{ $product->product_name }}</a>
+                                                    href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                    )">{{ $product->product_name }}</a>
                                             </h4>
                                             <div class="price-box">
                                                 @if ($product->discount_price)
@@ -157,8 +159,9 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
                                                 <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                <li><a class="links-details" href="single-product.html"><i
-                                                            class="fa fa-heart-o"
+                                                <li><a class="links-details"
+                                                        href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                        )"><i class="fa fa-heart-o"
                                                             data-product-id="{{ $product->id }}"></i></a></li>
                                                 <li><a class="quick-view" data-toggle="modal"
                                                         data-target="#exampleModalCenter"
@@ -185,7 +188,7 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                 <!-- single-product-wrap start -->
                                 <div class="single-product-wrap">
                                     <div class="product-image">
-                                        <a href="single-product.html">
+                                        <a href="{{ route('product.detail', ['id' => $product->id]) }}" )">
                                             <img src="{{ asset($product->image_one) }}" alt="Li's Product Image"
                                                 width="206px" height="206px" style="object-fit: cover">
                                         </a>
@@ -208,7 +211,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                                 </div>
                                             </div>
                                             <h4><a class="product_name"
-                                                    href="single-product.html">{{ $product->product_name }}</a>
+                                                    href="{{ route('product.detail', ['id' => $product->id]) }}"
+                                                    )">{{ $product->product_name }}</a>
                                             </h4>
                                             <div class="price-box">
                                                 @if ($product->discount_price)

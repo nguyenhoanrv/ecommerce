@@ -25,7 +25,7 @@ $categories = App\Models\Category::with('products')->get();
                                     <!-- single-product-wrap start -->
                                     <div class="single-product-wrap">
                                         <div class="product-image">
-                                            <a href="single-product.html">
+                                            <a href="{{ route('product.detail', ['id' => $product->id]) }}" )">
                                                 <img src="{{ asset($product->image_one) }}" alt="Li's Product Image"
                                                     width="206px" height="206px" style="object-fit: cover">
                                             </a>
@@ -48,7 +48,7 @@ $categories = App\Models\Category::with('products')->get();
                                                     </div>
                                                 </div>
                                                 <h4><a class="product_name"
-                                                        href="single-product.html">{{ $product->product_name }}</a>
+                                                        href="{{ route('product.detail', ['id' => $product->id]) }}">{{ $product->product_name }}</a>
                                                 </h4>
                                                 <div class="price-box">
                                                     @if ($product->discount_price)

@@ -40,5 +40,14 @@ Route::get('/product/get/{id}', function ($id) {
         'product' => $product
     ]);
 });
+Route::get('/product/detail/{id}', 'Admin\ProductController@show')->name('product.detail');
+
+
+
 Route::get('/admin', 'Admin\HomeController@root');
+
+
+
+
+
 Route::get('{any}', 'HomeController@index');

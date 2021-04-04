@@ -169,13 +169,4 @@ class ProductController extends Controller
             'message'   => 'Hide product successfully!'
         ]);
     }
-
-    public function show($id)
-    {
-        $product = Product::with('brand:id,brand_name')->findOrFail($id);
-        $sizes = explode(',', $product->product_size);
-        $colors = explode(',', $product->product_color);
-
-        return view('detail', compact('product', 'sizes', 'colors'));
-    }
 }

@@ -461,7 +461,37 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
             }
         }
     });
+
+    // Add to cart page detail
+    $(".cart-quantity").submit(function(e) {
+        console.log(e);
+        e.preventDefault();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+            }
+        });
+        const id = $(this).attr("data-product-id");
+        $.ajax({
+            type: "POST",
+            url: "/product/add/cart/",
+            dataType: "json",
+            data: {
+                id: id,
+                size: e.target[0].value,
+                color: e.target[1].value,
+                qty: e.target[2].value
+            },
+            success: res => {
+                toastr[res.type](res.message);
+            },
+            error: err => {}
+        });
+    });
     /*----------------------------------------*/
+
+    // tang giam button
+
     /* 21. Modal Menu Active
  /*----------------------------------------*/
     $(".quick-view").click(function(e) {
@@ -482,7 +512,14 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
             success: res => {
                 const product = res.product;
                 const size = product.product_size.split(",");
-                let htmlSize = size.reduce(
+                const color = product.product_color.split(",");
+                const htmlSize = size.reduce(
+                    (accumulator, e) =>
+                        accumulator +
+                        `<option value="${e}" title="${e}">${e}</option>`,
+                    ""
+                );
+                const htmlColor = color.reduce(
                     (accumulator, e) =>
                         accumulator +
                         `<option value="${e}" title="${e}">${e}</option>`,
@@ -557,17 +594,28 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
                                                             product.product_details
                                                         }
                                                     </div>
+                                                        <form class="cart-quantity" data-product-id="${
+                                                            product.id
+                                                        }">
+                                                    <div class="d-flex"> 
                                                     <div class="product-variants">
                                                         <div class="produt-variants-size">
                                                             <label>Dimension</label>
                                                             <select class="nice-select">
                                                                 ${htmlSize}
-                                                             
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="product-variants">
+                                                        <div class="produt-variants-size">
+                                                            <label>Color</label>
+                                                            <select class="nice-select">
+                                                                ${htmlColor}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                                     <div class="single-add-to-cart">
-                                                        <form action="#" class="cart-quantity">
                                                             <div class="quantity">
                                                                 <label>Quantity</label>
                                                                 <div class="cart-plus-minus">
@@ -578,13 +626,11 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
                                                                 </div>
                                                             </div>
                                                             <button class="add-to-cart" type="submit">Add to cart</button>
-                                                        </form>
                                                     </div>
+                                                        </form>
+
                                                     <div class="product-additional-info pt-25">
-                                                        <a class="wishlist-btn links-details" data-product-id="${
-                                                            product.id
-                                                        }"><i
-                                                                class="fa fa-heart-o"></i>Add to wishlist</a>
+                                                       
                                                         <div class="product-social-sharing pt-25">
                                                             <ul>
                                                                 <li class="facebook"><a href="#"><i
@@ -685,6 +731,33 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
                         .find("input")
                         .val(newVal);
                 });
+                $(".cart-quantity").submit(function(e) {
+                    console.log(e);
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                                "content"
+                            )
+                        }
+                    });
+                    const id = $(this).attr("data-product-id");
+                    $.ajax({
+                        type: "POST",
+                        url: "/product/add/cart/",
+                        dataType: "json",
+                        data: {
+                            id: id,
+                            size: e.target[0].value,
+                            color: e.target[1].value,
+                            qty: e.target[2].value
+                        },
+                        success: res => {
+                            toastr[res.type](res.message);
+                        },
+                        error: err => {}
+                    });
+                });
             },
             error: function() {}
         });
@@ -727,6 +800,28 @@ Note: main.js, All Default Scripting Languages For This Theme Included In This F
                 items: 4
             }
         }
+    });
+
+    $(".qtybutton").click(function() {
+        var $button = $(this);
+        var oldValue = $button
+            .parent()
+            .find("input")
+            .val();
+        if ($button.hasClass("inc")) {
+            var newVal = parseFloat(oldValue) + 1;
+        } else {
+            // Don't allow decrementing below zero
+            if (oldValue > 1) {
+                var newVal = parseFloat(oldValue) - 1;
+            } else {
+                newVal = 1;
+            }
+        }
+        $button
+            .parent()
+            .find("input")
+            .val(newVal);
     });
     /*----------------------------------------*/
     /* 24. Star Rating Js

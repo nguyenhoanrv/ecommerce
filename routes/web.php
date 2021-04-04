@@ -40,9 +40,15 @@ Route::get('/product/get/{id}', function ($id) {
         'product' => $product
     ]);
 });
-Route::get('/product/detail/{id}', 'Admin\ProductController@show')->name('product.detail');
+Route::get('/product/detail/{id}', 'ProductController@show')->name('product.detail');
 
+//add to cart
+Route::get('/product/add/cart/{id}', 'CartController@addToCart');
+Route::post('/product/add/cart/', 'CartController@addToCartDetail');
 
+// Cart
+Route::get('/cart/delete/{id}', 'CartController@delete');
+Route::get('/cart', 'CartController@view')->name('cart.view');
 
 Route::get('/admin', 'Admin\HomeController@root');
 

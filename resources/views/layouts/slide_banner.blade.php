@@ -35,7 +35,7 @@ $mid_sliders = DB::table('products')
                                     <h2>{{ $slider->product_name }}</h2>
                                     <h3>Starting at <span>${{ $slider->selling_price }}</span></h3>
                                     <div class="default-btn slide-btn">
-                                        <a class="links" href="shop-left-sidebar.html">Shopping Now</a>
+                                        <a class="links" href="{{ route('product.detail', ['id' => $slider->id]) }}">Shopping Now</a>
                                     </div>
                                 </div>
                             </div>

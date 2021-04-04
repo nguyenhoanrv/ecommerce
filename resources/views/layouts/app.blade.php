@@ -58,7 +58,49 @@
     @include('layouts.script')
     @yield('script')
     <script>
+        $('.add-cart').click(function(e) {
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+                }
+            });
+            const id = $(this).attr("data-product-id");
+            console.log('ok');
+            $.ajax({
+                type: "GET",
+                url: "/product/add/cart/" + id,
+                dataType: "json",
+                data: {},
+                success: res => {
+                    toastr[res.type](res.message);
+                },
+                error: err => {
 
+                }
+            });
+        });
+
+        $('.delete-cart-item').click(function(e) {
+            e.preventDefault();
+            const id = $(this).attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: "/cart/delete/" + id,
+                data: {},
+                success: function(res) {
+                    toastr[res.type](res.message);
+                    $('#cart-item-' + id).remove();
+                    $('.minicart-total > span').text(res.total);
+                    $('.hm-minicart-trigger > .item-text').html(`${res.total}
+                    <span class="cart-item-count">${res.count}</span>
+                    `);
+                },
+                error: err => {
+                    console.log(err);
+                }
+            });
+        });
 
     </script>
 </body>

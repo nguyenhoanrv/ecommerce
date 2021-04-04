@@ -188,41 +188,36 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                             <li class="hm-minicart">
                                 <div class="hm-minicart-trigger">
                                     <span class="item-icon"></span>
-                                    <span class="item-text">£80.00
-                                        <span class="cart-item-count">2</span>
+                                    <span class="item-text">$ {{ Cart::total() }}
+                                        <span class="cart-item-count">{{ Cart::count() }}</span>
                                     </span>
                                 </div>
                                 <span></span>
                                 <div class="minicart">
                                     <ul class="minicart-product-list">
-                                        <li>
-                                            <a href="single-product.html" class="minicart-product-image">
-                                                <img src="images/product/small-size/1.jpg" alt="cart products">
-                                            </a>
-                                            <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                <span>£40 x 1</span>
-                                            </div>
-                                            <button class="close">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </li>
-                                        <li>
-                                            <a href="single-product.html" class="minicart-product-image">
-                                                <img src="images/product/small-size/2.jpg" alt="cart products">
-                                            </a>
-                                            <div class="minicart-product-details">
-                                                <h6><a href="single-product.html">Aenean eu tristique</a></h6>
-                                                <span>£40 x 1</span>
-                                            </div>
-                                            <button class="close">
-                                                <i class="fa fa-close"></i>
-                                            </button>
-                                        </li>
+                                        @foreach (Cart::content() as $item)
+                                            <li id="{{ 'cart-item-' . $item->rowId }}">
+                                                <a href="{{ route('product.detail', ['id' => $item->id]) }}"
+                                                    class="minicart-product-image">
+                                                    <img src="{{ asset($item->options->image) }}"
+                                                        alt="cart products">
+                                                </a>
+                                                <div class="minicart-product-details">
+                                                    <h6>
+                                                        <a
+                                                            href="{{ route('product.detail', ['id' => $item->id]) }}">{{ $item->name }}</a>
+                                                    </h6>
+                                                    <span>${{ $item->price }} x {{ $item->qty }}</span>
+                                                </div>
+                                                <button class="close delete-cart-item" data-id="{{ $item->rowId }}">
+                                                    <i class="fa fa-close"></i>
+                                                </button>
+                                            </li>
+                                        @endforeach
                                     </ul>
-                                    <p class="minicart-total">SUBTOTAL: <span>£80.00</span></p>
+                                    <p class="minicart-total">SUBTOTAL: <span>${{ Cart::total() }}</span></p>
                                     <div class="minicart-button">
-                                        <a href="checkout.html"
+                                        <a href="{{ route('cart.view') }}"
                                             class="li-button li-button-dark li-button-fullwidth li-button-sm">
                                             <span>View Full Cart</span>
                                         </a>

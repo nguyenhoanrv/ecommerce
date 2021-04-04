@@ -1,5 +1,6 @@
 @php
 $categories = App\Models\Category::with('products')->get();
+$wl = App\Http\Controllers\WishlistController::getWishlist();
 @endphp
 
 @foreach ($categories as $category)
@@ -65,10 +66,16 @@ $categories = App\Models\Category::with('products')->get();
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                    <li><a class="links-details"
-                                                            data-product-id="{{ $product->id }}"><i
-                                                                class="fa fa-heart-o"></i></a></li>
+                                                    <li class="add-cart active" data-product-id="{{ $product->id }}"><a href="">Add to cart</a></li>
+                                                    <li class="aaaa"><a class="links-details"
+                                                        data-product-id="{{ $product->id }}">
+                                                        @isset($wl[$product->id])
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+
+                                                        @else
+                                                            <i class="fa fa-heart-o"></i>
+                                                        @endisset
+                                                    </a></li>
                                                     <li><a class="quick-view" data-toggle="modal"
                                                             data-target="#exampleModalCenter"
                                                             data-product-id="{{ $product->id }}"><i

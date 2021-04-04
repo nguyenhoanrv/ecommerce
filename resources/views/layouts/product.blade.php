@@ -83,7 +83,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                <li class="add-cart active" data-product-id="{{ $product->id }}"><a
+                                                        href="">Add to cart</a></li>
                                                 <li class="aaaa"><a class="links-details"
                                                         data-product-id="{{ $product->id }}">
                                                         @isset($wl[$product->id])
@@ -158,11 +159,17 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                <li><a class="links-details"
-                                                        href="{{ route('product.detail', ['id' => $product->id]) }}"
-                                                        )"><i class="fa fa-heart-o"
-                                                            data-product-id="{{ $product->id }}"></i></a></li>
+                                                <li class="add-cart active" data-product-id="{{ $product->id }}"><a
+                                                        href="">Add to cart</a></li>
+                                                <li class="aaaa"><a class="links-details"
+                                                        data-product-id="{{ $product->id }}">
+                                                        @isset($wl[$product->id])
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+
+                                                        @else
+                                                            <i class="fa fa-heart-o"></i>
+                                                        @endisset
+                                                    </a></li>
                                                 <li><a class="quick-view" data-toggle="modal"
                                                         data-target="#exampleModalCenter"
                                                         data-product-id="{{ $product->id }}"><i
@@ -229,9 +236,17 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                         </div>
                                         <div class="add-actions">
                                             <ul class="add-actions-link">
-                                                <li class="add-cart active"><a href="#">Add to cart</a></li>
-                                                <li><a class="links-details" data-product-id="{{ $product->id }}"><i
-                                                            class="fa fa-heart-o"></i></a></li>
+                                                <li class="add-cart active" data-product-id="{{ $product->id }}"><a
+                                                        href="">Add to cart</a></li>
+                                                <li class="aaaa"><a class="links-details"
+                                                        data-product-id="{{ $product->id }}">
+                                                        @isset($wl[$product->id])
+                                                            <i class="fa fa-heart" aria-hidden="true"></i>
+
+                                                        @else
+                                                            <i class="fa fa-heart-o"></i>
+                                                        @endisset
+                                                    </a></li>
                                                 <li><a class="quick-view" data-toggle="modal"
                                                         data-target="#exampleModalCenter"
                                                         data-product-id="{{ $product->id }}"><i
@@ -249,7 +264,3 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
         </div>
     </div>
 </div>
-
-@section('script')
-
-@endsection

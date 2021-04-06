@@ -81,7 +81,7 @@
             });
         });
 
-        $('.delete-cart-item').click(function(e) {
+        $('.delete-cart-item, .li-product-remove').click(function(e) {
             e.preventDefault();
             const id = $(this).attr('data-id');
             $.ajax({
@@ -91,6 +91,7 @@
                 success: function(res) {
                     toastr[res.type](res.message);
                     $('#cart-item-' + id).remove();
+                    $('#cart-' + id).remove();
                     $('.minicart-total > span').text(res.total);
                     $('.hm-minicart-trigger > .item-text').html(`${res.total}
                     <span class="cart-item-count">${res.count}</span>

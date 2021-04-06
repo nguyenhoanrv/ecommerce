@@ -41,6 +41,7 @@ class CategoryController extends Controller
                 ]);
             }
             $category->category_name = $request->category_name;
+            $category->save();
             return response()->json([
                 'type' => 'success',
                 'message'   => 'Update category successfully!'

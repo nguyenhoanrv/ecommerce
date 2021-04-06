@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -80,5 +82,28 @@ class CartController extends Controller
             'count' => $count,
 
         ]);
+    }
+
+    public function addCoupon(Request $request)
+    {
+        $request->validate([
+            'coupon_name' => 'required'
+        ]);
+
+        $coupon = Coupon::where('coupon_name', $request->coupon_name)->first();
+        if ($coupon) {
+            Cart::setGlobalDiscount($coupon->discount);
+            Session::put('coupon', $coupon->coupon_name);
+            Session::put('coupon_discount', $coupon->discount);
+            return redirect()->back()->with('message', 'Apply coupon successfully!')->with('type', 'success');
+        } else return redirect()->back()->with('error', 'Coupon not found!');
+    }
+
+    public function removeCoupon()
+    {
+        Cart::setGlobalDiscount(0);
+        Session::forget('coupon');
+        Session::forget('coupon_discount');
+        return redirect()->back()->with('message', 'Remove coupon successfully!')->with('type', 'success');
     }
 }

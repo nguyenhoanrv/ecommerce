@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -15,4 +16,5 @@ class ProductController extends Controller
         $same_products = Product::where('category_id', $product->category_id)->limit(10)->orderByDesc('created_at')->get();
         return view('pages.detail', compact('product', 'sizes', 'colors', 'same_products'));
     }
+    
 }

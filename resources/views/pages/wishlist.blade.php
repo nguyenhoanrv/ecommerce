@@ -46,7 +46,10 @@
                                                 @endif
                                             </td>
 
-                                            <td class="li-product-add-cart"><a href="#">add to cart</a></td>
+                                            <td class="li-product-add-cart">
+                                                <a href="" class="add-cart" data-product-id="{{ $item->product_id }}">add
+                                                    to cart</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

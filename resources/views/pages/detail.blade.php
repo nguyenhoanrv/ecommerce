@@ -364,7 +364,8 @@ $wl = App\Http\Controllers\WishlistController::getWishlist();
                                             </div>
                                             <div class="add-actions">
                                                 <ul class="add-actions-link">
-                                                    <li class="add-cart active"><a href="#">Add to cart</a></li>
+                                                    <li class="add-cart active" data-product-id="{{ $product->id }}"><a
+                                                            href="">Add to cart</a></li>
                                                     <li class="aaaa"><a class="links-details"
                                                             data-product-id="{{ $product->id }}">
                                                             @isset($wl[$product->id])

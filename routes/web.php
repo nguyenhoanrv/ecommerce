@@ -52,7 +52,9 @@ Route::get('/cart', 'CartController@view')->name('cart.view');
 
 Route::get('/admin', 'Admin\HomeController@root');
 
-
+//
+Route::post('/coupon/add', 'CartController@addCoupon')->name('coupon.add');
+Route::get('/coupon/remove', 'CartController@removeCoupon')->name('coupon.remove');
 
 
 
